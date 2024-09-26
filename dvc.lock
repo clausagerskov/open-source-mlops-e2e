@@ -32,12 +32,12 @@ stages:
           targ_col: Exited
           random_state: 42
         data_split:
-          test_size: 0.25
+          test_size: 0.15
           processed_data_dir: data/processed
     outs:
     - path: data/processed
       hash: md5
-      md5: 717266535ec6d082490c568ed2c4f958.dir
+      md5: a44d25491161a0173ee2bd5b8fe3dcde.dir
       size: 722283
       nfiles: 4
   train:
@@ -45,7 +45,7 @@ stages:
     deps:
     - path: data/processed
       hash: md5
-      md5: 717266535ec6d082490c568ed2c4f958.dir
+      md5: a44d25491161a0173ee2bd5b8fe3dcde.dir
       size: 722283
       nfiles: 4
     - path: src/stages/train.py
@@ -76,25 +76,25 @@ stages:
           model_dir: models
           model_path: models/clf-model.joblib
           params:
-            n_estimators: 200
+            n_estimators: 50
             max_depth: 20
     outs:
     - path: models/clf-model.joblib
       hash: md5
-      md5: 6e74f2e7712f56bacd85feb51bc9dfde
-      size: 20685464
+      md5: 1ef7d05d88d2d0a6bdbd9164f739bcbc
+      size: 5700632
   eval:
     cmd: python src/stages/eval.py --config=params.yaml
     deps:
     - path: data/processed
       hash: md5
-      md5: 717266535ec6d082490c568ed2c4f958.dir
+      md5: a44d25491161a0173ee2bd5b8fe3dcde.dir
       size: 722283
       nfiles: 4
     - path: models/clf-model.joblib
       hash: md5
-      md5: 6e74f2e7712f56bacd85feb51bc9dfde
-      size: 20685464
+      md5: 1ef7d05d88d2d0a6bdbd9164f739bcbc
+      size: 5700632
     - path: src/stages/eval.py
       hash: md5
       md5: 47f9ebbbe00ff72419aa2c42e5002eb5
@@ -119,25 +119,25 @@ stages:
           targ_col: Exited
           random_state: 42
         data_split:
-          test_size: 0.25
+          test_size: 0.15
           processed_data_dir: data/processed
         train:
           model_type: randomforest
           model_dir: models
           model_path: models/clf-model.joblib
           params:
-            n_estimators: 200
+            n_estimators: 50
             max_depth: 20
     outs:
     - path: metrics.json
       hash: md5
-      md5: 7b63ca5d8f61edc875bc1affe93c507f
+      md5: 4a1932541e3478a3c9cd83ad46501c2d
       size: 70
     - path: reports/feat_imp.csv
       hash: md5
-      md5: e0728170034d6b6e56d8e2fde937f679
-      size: 195
+      md5: dba9197788e400954ce6156a24585d58
+      size: 194
     - path: reports/figures/cm.png
       hash: md5
-      md5: 0783bf563beafa934d50d05b222e7a09
-      size: 10520
+      md5: da529d393fa665ce8fef19762d10c7d6
+      size: 10102
